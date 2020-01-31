@@ -1,0 +1,38 @@
+def is_divisible(x, y): # Function from Section 6.4 of the textbook.
+    if x % y == 0:
+        return True
+    else:
+        return False
+
+def is_power(x, y): # Creating a new function called 'is_power' that will take two parameters 'x' and 'y'.
+    if is_divisible(x, y) == True : # We call function 'is_divisible' to check
+        # if parameter 'x' is divisible by parameter 'y'.
+        # Note: By calling function 'is_divisible' inside function 'is_power' that currently executing we create a recursion.
+        # To track how our function will work regarding given arguments I will include 'print' for each block of code.
+        print("Calling function 'is_divisible'.")
+        print('Current arguments: x  = '+str(x)+', y = '+str(y)) # This line of code will show us given arguments.
+        if x == y: # Here is base case when the two arguments being equal.
+            print("Argument 'x' equal to argument 'y'.")
+            return True
+        elif y == 1: # Here is base case of the second argument being equal to value '1'.
+            print("Second argument has value '1'.")
+            if x == 1: # Following up on second argument having a value of '1'
+                print("First argument has value of '1'.")
+                # We would have to add a case where only 1 is a power of 1.
+                return True
+            else:
+                return False
+        elif is_power(x / y, y): # This condition checks if 'x/y' is a power of 'y',
+            # also function 'is_power' using a recursion of itself.
+            print('Current arguments: x  = ' + str(x) + ', y = ' + str(y)) # This part of code will visually represent in our output how it changes our arguments.
+            print("'x/y' is a power of 'y'.")
+            return True
+        else:
+            print("None of previous cases worked. Dead end.")
+            return False
+
+print("1st case 'is_power(10, 2)' returns: ", is_power(10, 2))
+print("2nd case 'is_power(27, 3)' returns: ", is_power(27, 3))
+print("3rd case 'is_power(1, 1)' returns: ", is_power(1, 1))
+print("4th case 'is_power(10, 1)' returns: ", is_power(10, 1))
+print("5th case 'is_power(3, 3)' returns: ", is_power(3, 3))
