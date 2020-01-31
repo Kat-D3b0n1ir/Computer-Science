@@ -1,0 +1,28 @@
+def statment():
+        total_income = 0
+        total_expenses = 0
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                  'November', 'December']
+        currency = input('Enter your currency:\n(For example Dollar or Euro)\n')
+        income = tuple(map(int, input('Enter your INCOME past 12 months for each month separating with white space.\n(For example \'1 2 3 4 5 6 7 8 9 10 11 12\')\n').split()))
+        expenses = tuple(map(int, input('Enter your EXPENSES past 12 months for each month separating with white space.\n(For example \'1 2 3 4 5 6 7 8 9 10 11 12\')\n').split()))
+        # Following code is to quick test the loop avoiding typing input.
+        #income = 3534, 3462, 1235, 2523, 2332, 3534, 3462, 1235, 2523, 2332, 4235, 5343
+        #expenses = 2142, 1245, 3212, 2142, 1245, 3212, 2142, 1245, 3212, 2142, 1245, 3212
+        # In the following loop we used 'zip' function as iterator for traversing two or more iterables at once.
+        # In the first loop the 'zip' function will take a first elements of 'months', 'income', 'expenses',
+        # and in second loop it will take second elements of  'months', 'income', 'expenses', so on.
+        for months, income, expenses in zip(months, income, expenses):
+            profit = income-expenses
+            total_income += income
+            total_expenses += expenses
+            print(months,'your balance was: '+str(profit)+' '+str(currency))
+        print('Your total income for past 12 months was '+str(total_income)+' '+str(currency)+' and expenses were '+str(total_expenses)+' '+str(currency))
+statment()
+
+def test_sum(*argument):
+    print('Type of given argument \'args\' is : {0}'.format(str(type(*argument))))
+    print('The sum of all given numbers is : {0}'.format(str(sum(*argument))))
+nums = [1, 2, 3]
+print('Type of variable \'num\': '+str(type(nums)))
+test_sum(nums)
