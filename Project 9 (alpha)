@@ -1,0 +1,48 @@
+def invert_dict_2(file):
+# Part 1: Transferring file's dictionary to temporary dictionary.
+        input_file = open(file, 'r') # Reading a file.
+        # Inside of the file is following string:
+        # "{'key1': ['value1'], 'key2': ['value2'], 'key3': ['value3'], 'key4': ['value4']}".
+        for string in input_file: # Creating 'for' loop to format given file from "input_file".
+           chars = "{[']}" # Characters that we don't want to see inside our file.
+        x=0 # Starting point of the key.
+        y=1 # Starting point of the value.
+        dictionary = dict() # Creating an empty dictionary where we will add keys and values from "input_file".
+        while True: # Creating 'while' loop to optimize following 'for' loop.
+            # Here is my intentions to make 'x' and 'y' increment possible. Unfortunately, I couldn't figure it out
+            # 'if' statement for it, so we will use 'try' and 'except' method. In following method I know that
+            # file with dictionaries will run out of characters and when index 'x' and 'y' will be out of range
+            # the loop will stop and we will have final version of 'dictionary'.
+            for value in chars:
+                string = string.replace(value, '\n') # Here we delete all unnecessary characters with function 'replace'.
+            split = string.split(",") # This to go.
+            print("string:", string)  # For debugging purpose.
+            try:
+                dictionary_key = split[x]# Temporary variable of key.
+                dictionary_value = [split[y]]
+            except IndexError:
+                break
+            dictionary[dictionary_key] = dictionary_value  # Adding new pair of key and value to our dictionary.
+            print("Dictionary updated:", dictionary) # For debugging purpose.
+            # Increment of 'x' and 'y' for next time time this loop will run.
+            x = x+1
+            y = y+1
+        #print('Our dictionary from a file transferred to variable "dictionary":\n', dictionary)
+# Part 2: Inverting temporary dictionary and writing a result in a new file.
+        inverse = dict()
+        for key in dictionary:
+            val = dictionary[key]
+            for value in val:
+                if value not in inverse:
+                    inverse[value] = [key]
+                else:
+                    inverse[value].append(key)
+        print(inverse)
+        # Creating a new file for the inverted dictionary.
+        inverted_dict_file = open("inverted.txt", "w")
+        content = ",\n".join(("{}:{}".format(*i) for i in inverse.items()))
+        inverted_dict_file.write(content)
+        inverted_dict_file.close()
+        print('The new text file "inverted.txt" with inverted dictionary was created.')
+# Part 3: Enjoying the result.
+invert_dict_2('file2.txt')
