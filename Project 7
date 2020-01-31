@@ -1,0 +1,56 @@
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+test_dups = ["zzz","dog","bookkeeper","subdermatoglyphic","subdermatoglyphics"]
+test_miss = ["zzz","subdermatoglyphic","the quick brown fox jumps over the lazy dog"]
+
+def histogram(s): #Function 'histogram()' From Section 11.2.
+    d = dict() # Creates empty dictionary from variable 'd'.
+    for c in s: # For each element inside argument 's'.
+        if c not in d: # If 'x' element is not in dictionary
+            d[c] = 1 # it will create new key 'x' with value '1'.
+        else: # If 'x' element in dictionary
+            d[c] += 1  # it will increase value by '1' in key 'x'.
+    return d # Return whole new dictionary after 'for' loop traversed a string from argument.
+# Part 1.
+def has_duplicates(s):
+    h = histogram(s) # We will use function 'histogram' that takes argument 's' from function's 'has_duplicates()' argument.
+    for elem in h.values(): #Build in method 'values()' return values of dictionary from function 'histogram()'
+        if elem > 1:  # If 'value' is more than 1 then function will return boolean 'True'.
+             return True
+        else:
+            return False
+print('###Output of Part 1###')
+count_test_dups = 1 # For nice output.
+for elem in test_dups:
+    if has_duplicates(elem): # If 'has_duplicates(elem)' will return 'True'
+        print(str(count_test_dups)+'. '+elem+' has duplicates.') # it has duplicates and we will print this string.
+        count_test_dups = count_test_dups + 1
+    else:
+        print(str(count_test_dups)+'. '+elem+' has no duplicates.')
+        count_test_dups = count_test_dups + 1
+
+#Part 2.
+def missing_letters(s):
+    global alphabet # Using global variable 'alphabet'.
+    missing_letters = [] # Creating empty list.
+    for letter in alphabet: # 'For' loop will traversed a string from variable 'alphabet'.
+        if letter not in s: # If 'letter' from variable 'alphabet' is not in given argument 's',
+            missing_letters.append(letter) # it will add it to empty list 'missing_letters'.
+        else:
+            continue
+    missing_letters.sort() # This will sort all missing letters in final version of list 'missing_letters'.
+    str_missing_letters = '' # Creating new empty string.
+    for elem in missing_letters: # For each 'elem' in list 'missing_letters',
+        str_missing_letters = str_missing_letters + elem # string 'str_missing_letters' will add previous 'str_missing_letters'
+        # to a new element from list 'missing_letters' every time loop will run.
+    return str_missing_letters # Return final version of the string.
+print('###Output of Part 2###')
+test_miss_count = 1
+for elem in test_miss:
+    if len(missing_letters(elem)) == 0: # If length of whatever function 'missing_letters' returns is 0 it means there is
+        # no missing letters.
+        print(str(test_miss_count) + '. ' +elem+ ' is not missing any letters.')
+        test_miss_count += 1
+    elif len(missing_letters(elem)) > 0: # If length of whatever function 'missing_letters' returns is more than 0
+        # it means there is missing letters missing letters.
+        print(str(test_miss_count)+'. '+elem+' is missing letters ', missing_letters(elem))
+        test_miss_count += 1
