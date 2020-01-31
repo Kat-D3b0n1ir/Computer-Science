@@ -1,0 +1,98 @@
+def invert_dict_v2(file):
+####Part 1: Open a file, format a file to temporary dictionary variable.
+    f = open(file, 'r') # Reading a file.
+    dictionary = dict() # Creating a variable for temporary dictionary.
+    temp_list = list() # Creating a variable for temporary dictionary.
+    clear_those = "{[']}" # Characters that we need to get rid off.
+    new_line = ',:' # Characters that will be used to create a new line in a string.
+    for line in f:
+        temp_string = line # Creating a string from the content of a file.
+    f.close() # We won't use file anymore as we have string that contains all data of that file.
+    print('Step 1. Creating a new string based on the content from a given text file:\nNew string: '+str(temp_string))
+    for char in clear_those:
+        temp_string = temp_string.replace(char, '')
+    for char in new_line:
+        temp_string = temp_string.replace(char, '\n')
+    print('Step 2. Formatting a string.\nResult:\n'+str(temp_string))
+    temp_list = temp_string.split('\n')
+    print('Step 3. Converting a string to list.\nResult: '+str(temp_list))
+    x = 0 # Index of key element begins here.
+    y = 1 # Index of value element begins here.
+    while True:
+        try:
+            dictionary_key = temp_list[x]  # Temporary variable of key.
+            dictionary_value = [temp_list[y]] # Temporary variable of value.
+            dictionary[dictionary_key] = dictionary_value  # Adding new pair of key and value to our dictionary.
+            x = x + 1
+            if x == y:
+                x = x + 1
+            y = y + 2
+        except IndexError: # This will be indicator of that our 'while' loop have assign all items from list to dictionary.
+            break
+    print("Step 4. Converting list to a dictionary.\nResult: "+str(dictionary))  # For debugging purpose.
+####Part 2: Inverting temporary dictionary and writing a result in a new file.
+    inverse = dict()
+    for key in dictionary:
+        val = dictionary[key]
+        for value in val:
+            if value not in inverse:
+                inverse[value] = [key]
+            else:
+                inverse[value].append(key)
+    print('Step 5. Inverting a dictionary.\nResult: '+str(inverse))
+    # Creating a new file for the inverted dictionary.
+    dict2file = open("inverted.txt", "w")
+    # I decided to format inverted dictionary to a new file using method 'items' which provide us pairs of key and value and to
+    # pick those pairs I use 'for' loop that will give us index 'i' which in nutshell points on which pair to grab
+    # for method 'format' to join a string starting from a new line.
+    content = "\n".join(("{}:{}".format(*i) for i in inverse.items()))
+    dict2file.write(content)
+    dict2file.close()
+    print('The new text file "inverted.txt" with inverted dictionary was created.')
+####Part 3: Testing the concept.
+print('####Executing alpha version of code.')
+print('1. Concept test.')
+invert_dict_v2('file2.txt')
+print('2. Loading dictionary from Learning Journal #7.')
+print('####Skiping this step.')
+#invert_dict_v2('Lj7dict.txt')
+print('####It will fail so I have disable it to make output a way smaller than it could be.')
+print('####Alpha version done executing.')
+
+####Part 4: Optimizing a code based on bugs.
+def invert_dict_v3(file):
+    import ast
+    f = open(file, 'r')
+    for line in f:
+        temp_string = line
+        if "'" in temp_string:
+            temp_string = temp_string.replace("'", '"') # Should prevent bugs when using 'literal_eval'.
+        dictionary = ast.literal_eval(temp_string)
+        # Method 'ast.literal_eval' will run string 'temp_string' as argument to dictionary. Let's say 'temp_string' in line 67 is
+        # string that contains only '{}', so variable 'dictionary' will become empty dictionary. If 'temp_string' will contain
+        # '[]' then variable 'dictionary' will become an empty list.
+        print("Dictionary : "+str(dictionary))
+        print(type(dictionary))
+    f.close()
+#### This way using library 'ast' or 'Abstract Syntax Trees' and its 'literal_eval' method we made our code smaller
+#### and we have escaped converting string to list and then to dictionary.
+    inverse = dict()
+    for key in dictionary:
+        val = dictionary[key]
+        for value in val:
+            if value not in inverse:
+                inverse[value] = [key]
+            else:
+                inverse[value].append(key)
+    print('Inverting a dictionary.\nResult: '+str(inverse))
+    dict2file = open('inverted.txt', "w")
+    content = "\n".join(("{}:{}".format(*i) for i in inverse.items()))
+    dict2file.write(content)
+    dict2file.close()
+    print('The new text file "inverted.txt" with inverted dictionary was created.')
+print('####Executing final version of code.')
+print('1. Concept test.')
+invert_dict_v3('file2.txt')
+print('2. Loading dictionary from Learning Journal #7.')
+invert_dict_v3('Lj7dict.txt')
+print('####Final version done executing.')
