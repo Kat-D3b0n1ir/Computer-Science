@@ -1,0 +1,52 @@
+from operator import index
+def part1():
+    prefixes = "JKLMNOPQ"
+    suffix = "ack"
+    for letter in prefixes:
+        if letter in ('O', 'Q'):
+            # If inside list 'letter' 'for' loop will find string
+            #  'O' or 'Q' we will add letter 'u' between lists 'letter' and 'suffix'.
+            print(letter + 'u' + suffix)
+        else: # If list 'letter' missing 'O' or 'Q' it will just combine it with list 'suffix'.
+            print(letter + suffix)
+
+
+#### My own examples of string slicing:
+
+# In the first example with string slicing we can reverse a string.
+def reverse_string(string):
+    reversed_string = string[::-1] # In this string slicing we added 3rd parameter, beside start and end in index.
+    # Usually 3rd parameter used to skip each 'n' element of string, but if we set 'n' to index of '1' then our output
+    # will remain same as it would be if we omit third parameter. If we set negative index like '-1'
+    # then slicing will happen from end of the list, therefore string will be read from last element.
+    return reversed_string
+# In the second example using string slicing we will show how to operate with 'index' in a string.
+def alphabet(letter): # Argument is first string.
+    alphabet = 'abcdefghijklmnopqrstuvwxyz' # Variable 'alphabet' is second string.
+    if not len(letter) < 1: # Checking if argument 'letter' has no more than 1 character.
+        print("Your argument should be only one letter")
+    if letter in alphabet: # Checking if argument 'letter' is inside a variable alphabet.
+        letter_index = alphabet.index(letter) # Getting index of string 'letter' inside of string 'alphabet'.
+        next = letter_index + 1 # We will use this later to get next element of index, and
+        prev = letter_index - 1 # this to get previous element of index.
+        print('The letter "'+letter.upper()+'" is '+str(letter_index+1)+' in English alphabet.')
+        # The 'alphabet[start:stop]' can't be 'alphabet[x:x]', because it will return empty string.
+        # If we do 'alphabet[x:(x+1)]' it will print only one element of string, because where we have 'stop' or 'x+1'
+        # thats where functions stop before, therefore when function reach element 'x+1' it will stop right before it.
+        print('The next letter to "'+letter.upper()+'" is "'+alphabet[next:next+1].upper()+'".') # Here we slice string
+        # using index of our 'letter' adding '1' to it to find out what is next element to it.
+        print('The previous letter to "' + letter.upper() + '" is "'+alphabet[prev:prev+1].upper()+'".')
+    else: # If argument 'letter' cant be find in string 'alphabet' following block of code will execute.
+        print("Please, use only letters.")
+# In a last example we will show how negative index works.
+def negative_index(string):
+    print(string[-(len(string)):])
+    # 'len(string)' will give us last index, if we make it negative Python will give us same result as if we would use '[0:]'.
+    # For a string slicing if we use negative index then Python will count from the end of a string towards 0.
+print("Learning Journal Unit 5.\n 2019.\nPart 1.\nOutput:")
+part1()
+print("Part 2.\nFirst example's output:\n"+reverse_string('abcdefghijklmnopqrstuvwxyz'))
+print("Second example's output:")
+alphabet(input("Please enter one single letter: "))
+print("Third example's output:")
+negative_index(input('Enter any sentence: '))
