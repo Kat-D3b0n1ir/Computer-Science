@@ -1,0 +1,22 @@
+import math
+def my_sqrt(a):
+    x = 1 # Initializing variable 'x'.
+    while True:
+        y = (x + a/x) / 2.0
+        if y == x:
+            return x # Returning final value of 'x'.
+        x = y
+
+
+def test_sqrt(a):  # Creating function named 'test_sqrt' which takes 'a' for argument.
+    while a <= 25: # Using a 'while' loop that will run until 'a' will reach value of '25'.
+        # We will use Python's f-String method to format our printed text.
+        print(
+            f"a = {(int(a))} | my_sqrt(a) = {(round(my_sqrt(a) , 11))} | math.sqrt(a) = {(round(math.sqrt(a) , 11))} | diff = {round(abs((my_sqrt(a)-math.sqrt(a))), 27)}")
+        # As you see inside a 'print' function we encapsulate call to 'my_sqrt' and 'math.sqrt' with argument 'a'.
+        # Note: we use function 'round' with value '11' to round result of 'math.sqrt(a)' and 'my_sqrt(a)' to 11 digits, because in Python 3 we will
+        # have 15 digits as a result while on Python 2 we have 11 digits, and that's how we will get slightly different results between from a textbook.
+        # To have same results as in a textbook and in assigment's description I have decided to round all the digits
+        # the way Python 2 does. For 'diff = round(abs((my_sqrt(a)-math.sqrt(a))), 27)' we use 27 because Python 3 return 31 digit.
+        a = a + 1 # Each time 'while' loop runs it will add value of '1' to our argument 'a'.
+test_sqrt(1) # Calling our function with value of '1' so it will start 'while' loop from '1'
