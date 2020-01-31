@@ -1,0 +1,37 @@
+def separate(list): # We create function 'merge' which take a list as an argument.
+    size = len(list) # Variable size will have a value based on length of list.
+    num_list = [] # Creating an empty list for a numbers.
+    str_list = [] # Creating an empty list for strings.
+    boo_list = [] # Creating an empty list for booleans.
+    # Note:
+    # All lists are empty and I could make reference like 'str_list = num_list', but then if we will
+    # add or remove something from one it will be performed in a the second list, because they refer to same object.
+    # If you will run this code and change line 10 to 'str_list = num_list' you can checked it out.
+    for x in range(size): # Using 'for' loop with variable 'size' for size parameter in function 'range()'.
+        if type(list[x]) == int or type(list[x]) ==  float: # If 'x' element in 'list' has type 'int' or 'float' we will add it to list 'num_list'.
+            num_list.append(list[x])
+        elif type(list[x]) == str: #If 'x' element in 'list' has type 'str' we will add it to list 'str_list'.
+            str_list.append(list[x])
+        elif type(list[x]) == bool:  # If 'x' element in 'list' has type 'bool' we will add it to list 'boo_list'.
+            boo_list.append(list[x])
+    print('Address of your list is: ' + str(id(list)))
+    list_final = boo_list+num_list+str_list
+    list = list_final # Alias 'list' to list_final
+    # Printing our empty lists after they went thru 'for' loop.
+    print(num_list)
+    print(str_list)
+    print(boo_list)
+    print(list) # Printing original 'list' that was given as an argument.
+    print('Address of final list is: ' + str(id(list)))
+
+separate([1,'test', 2, 3, 1.2, 'abc', True, False])
+
+# In nutshell my function takes a list passed in as an argument and separating it into three lists, in the first  list we will have numbers,
+# and in the second list we will have strings, in the last one we have boolean. In a details, first, we are creating 3 empty lists
+# which will refer to following variables: num_list, str_list, boo_list. Next step was is to create a 'for' loop,
+# which will reference each element of original 'list' to 3 empty lists based om element's type. For my loop I used
+# 'range' and to find a proper size I create variable size which will serve a parameter for it and will
+# have a value of function 'len()', that function will use as an argument parameter 'list', the argument
+# we were giving to our main function. After the loop will sort each element of original list to three different lists
+# we will print three new lists and sort them in order booleans, numbers, strings and return new sorted list that was originally
+# given as an argument. Also, I alias original list to new final list, so now when we call to list it will call to object of final list.
