@@ -1,0 +1,98 @@
+# Every function intended to print out 'True' or 'False' if it has any lower case character.
+# In other words if string contains more than 1 lower case character we should have our function return 'True'.
+
+# 1st Function.
+
+def any_lowercase1(s):
+    for c in s: # Takes first character from argument 's' what supposed to be string.
+        if c.islower(): # If first character is lower-case it will return boolean 'True'.
+            return True
+        else: # If first character is not lower-case it will return boolean 'False'.
+            return False
+print(any_lowercase1('Test')) # First example where first character is upper-case.
+# False. Our function checks first character in 'Test' and returns false because first character is upper-case 'T'.
+# After first character return false our function wont continue checking others.
+print(any_lowercase1('tEst')) # Second example where first character is lower-case, but second character is upper-case.
+# True. Our function check first character in 'tEst' where first character is lower-case and return true, and
+# our function will not check rest of string if it has any lower case.
+print(any_lowercase1('test Test')) # Third example where first word is lower-case, and second word is upper-case.
+# True. Just to confirm our previous examples we did tried string 'test Test'.
+
+# 2nd Function.
+
+def any_lowercase2(s):
+     for c in s: # Same as previous function takes first character from argument 's'.
+          if 'c'.islower(): # Checks if string that contains 'c' is lower case.
+               return 'True' # Will return string 'True' because previous expresion ''c'.islower()' is always 'True'.
+          else: # Unreachable code/Dead code.
+               return 'False'
+print(any_lowercase2('TEST')) # All characters in a string are capital.
+# True. Function checked if string 'c' is lower case, function didn't check argument as it intended.
+
+# 3rd Function.
+
+def any_lowercase3(s):
+     for c in s:
+          flag = c.islower()  # The 'islower()' methods returns 'True' if all characters in the string are lowercase, Otherwise, It returns 'False'.
+            # The 'c.islower()' is assigned to variable 'flag', and if we return 'flag' we will have boolean with 'True' or 'False'.
+     return flag
+# This function will check all the characters of string and only after checking all characters it will return boolean of the last character.
+# In nutshell 'return flag' will be executed after last character is checked and variable 'flag' assigned a boolean of the last character.
+print(any_lowercase3('tesT'))
+# False. Last character is upper-case, method 'islower()' will return boolean 'False' and assign it to variable 'Flag', and
+# 'return flag' will be assigned 'False'.
+print(any_lowercase3('Test'))
+# True. Last character is lower-case, method 'islower()' will return boolean 'True' and assign it to variable 'Flag', and
+# 'return flag' will be assigned 'True'.
+
+
+# 4th Function.
+# This function works as it intended.
+def any_lowercase4(s):
+     flag = False # Initializing variable 'flag' with default value boolean 'False'.
+     for c in s: # Checking each character from string.
+          flag = flag or c.islower()
+        # Variable 'flag' is 'False' by default, if 'c.islower()' will return 'True' it will set variable
+        # 'flag' to 'True', therefore it will assign 'True or False' to variable 'flag' and if we have 'True or False' or 'False or True' it will
+        # always return 'True', even if 'c.islower()' will return 'False' it won't be matter.
+        # In conclusion, once method 'c.islower()' will return boolean 'True' the variable 'flag' will always return 'True'.
+     return flag
+# Here is some calls to function 'any_lowercase4' to demonstrate it works as it intended.
+print(any_lowercase4('strawBerry'))
+# False.
+# All the characters are upper-case and only in this case we will have 'False'.
+print(any_lowercase4('StrawBerry'))
+# True.
+print(any_lowercase4('tesT'))
+# True.
+print(any_lowercase4('teSt'))
+# True.
+
+
+# 5th Function.
+
+def any_lowercase5(s):
+     for c in s:
+          if not c.islower():
+               return False
+     # Method 'islower()' will be 'True' or 'False', therefore we can read this code as 'if not True: return False' or
+     # 'if not False: return False'  depending what method 'islower()' will return. Basically, 'if not True:' means
+     # if the statement is false do that and 'if not False"' means if the statement is true do that. Lets adjust this
+     # statement to our current function. If first character from a string is lower case, the method 'islower()' will return 'True'
+     # what means 'if not True'. In this case, our code will move to next character in order and so on until we will have
+     # method 'islower()' will return 'False', then we will have 'if not False' and 'c.islower()' is 'False' will execute following
+     # block of code 'return False'. If 'c.islower()' keep returning 'True' and given string in argument will run out of
+     # characters it will move to 'return True' instead of 'for c in s' because there is no left 'c' in 's', or characters in string.
+     return True # Will return 'True' only if all the characters are lower-case.
+# Here is some calls to 'any_lowercase5' to demonstrate that it will return 'True' only if all characters
+# are low case.
+print(any_lowercase5('test'))
+# True. As you can see this function return 'True' because all the characters are lower-case.
+print(any_lowercase5('Test'))
+# False.
+print(any_lowercase5('TEST'))
+# False.
+print(any_lowercase5('teSt'))
+# False.
+print(any_lowercase5('tesT'))
+# False.
