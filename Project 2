@@ -1,0 +1,30 @@
+# As you remember from part 1 we have used Pythagorean theorem to find length of hypotenuse.
+# Pythagorean theorem requires triangle to be right angled.
+# I decided to extend a topic of geometry and create a function that will do computation of
+# algorithm that check if given triangle is right angled or not.
+# We will use user's variables upon calling a function. Algorithm will be based on Pythagorean theorem.
+# If 'c'='a'+'b' it should be right angled triangle.
+# For a tricky part we have to think that user can assign 'c' < 'a' or 'c' < 'b' what will violate post-condition.
+# My main aim in this function to make it universal and simple to use.
+# First we will prompt input for user to get assign 3 variables for our algorithm.
+a = int(input('Enter first angle: '))
+b = int(input('Enter second angle: '))
+c = int(input('Enter third angle: '))
+
+def is_my_triangle_right_angled(a,b,c):
+    print('Given values a = '+str(a)+' b = '+str(b)+' c = '+str(c)) # Debug message to check given values
+    a, b, c = sorted([a, b, c]) # This will return a new list containing all items from the iterable in ascending order.
+    # We will reassign variables with new values so we will have 'c' > 'b' > 'a'. Hypotenuse always will be 'c'
+    print('Sorted values a = '+str(a)+' b = '+str(b)+' c = '+str(c)) # Debug message to show that everything works as intended.
+    check = abs(a ** 2 + b ** 2 - c ** 2 ) < 0.1 # abs(a ** 2 + b ** 2 - c ** 2 ) should be equal to 0 if 'c'='a'+'b'
+    # and then if 0 is less than 0.1 the variable 'check' will be 'true', else it will be false.
+
+    # Note: we use 'abs' to return absolute value of a number, meaning that if it will be '-2' or any negative value
+    # it will return positive value '2' so we will have '2 < 0.1' what will be false.
+    # To summarize we can't have any negative value and to return 'true' there is only 0 > 0.1.
+    if check: # If variable 'check' is true this block of code will execute.
+        print("Triangle is right angled.")
+    else: # If variable 'check' is false this block of code will execute
+        print('Triangle is not right angled.')
+
+is_my_triangle_right_angled(a,b,c) # Calling our function.
